@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyz.mapper.PostMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.pojo.Post">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="theme" property="theme" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="create_at" property="createAt" jdbcType="BIGINT"/>
+        <result column="update_at" property="updateAt" jdbcType="BIGINT" />
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, theme, content, create_at, update_at, creator_id
+    </sql>
+    <select id="getPost" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM post
+        WHERE id = #{id}
+    </select>
+    <select id="getPostByCreatorId" resultType="com.xyz.pojo.Post" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM post
+        WHERE creator_id = #{creatorId}
+    </select>
+    <select id="checkOwnerShip" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM post
+        WHERE id = #{postId} AND creator_id = #{userId}
+    </select>
+    <select id="getAllPost" resultType="com.xyz.pojo.Post" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM post
+    </select>
+    <insert id="createPost" useGeneratedKeys="true" keyProperty="id" parameterType="com.xyz.pojo.Post">
+        INSERT INTO
+            post
+            (theme, content, create_at, update_at, creator_id)
+        VALUES
+            (#{theme}, #{content}, #{createAt}, #{updateAt}, #{creatorId})
+    </insert>
+
+    <update id="updatePost" parameterType="com.xyz.pojo.Post">
+        UPDATE
+        post
+        SET
+        theme = #{theme},
+        content = #{content},
+        create_at = #{createAt},
+        update_at = #{updateAt},
+        creator_id = #{creatorId}
+        WHERE
+        id = #{id}
+    </update>
+    <delete id="deletePost" parameterType="java.lang.Long">
+        DELETE FROM
+        post
+        WHERE
+        id = #{id}
+    </delete>
+</mapper>

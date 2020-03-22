@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyz.mapper.TokenMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.pojo.Token" >
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="client" property="client" jdbcType="BIGINT" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
+        <result column="token" property="token" jdbcType="VARCHAR" />
+        <result column="created_at" property="createdAt" jdbcType="VARCHAR" />
+        <result column="updated_at" property="updatedAt" jdbcType="VARCHAR" />
+        <result column="expires_at" property="expiresAt" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        user_id, client, ip, token, created_at, updated_at, expires_at
+    </sql>
+    <insert id="createToken" parameterType="com.xyz.pojo.Token" >
+        INSERT INTO tokens
+        (<include refid="Base_Column_List"/>)
+        VALUES
+        (#{userId},#{client},#{ip},#{token},#{createdAt},#{updatedAt},#{expiresAt})
+    </insert>
+    <select id="getToken" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM tokens
+        WHERE user_id = #{userId} AND client = #{client}
+    </select>
+    <select id="getTokenByStr" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM tokens
+        WHERE token = #{token}
+    </select>
+    <update id="updateToken" parameterType="com.xyz.pojo.Token" >
+        UPDATE tokens
+        SET
+        token = #{token},
+        ip = #{ip},
+        updated_at = #{updatedAt},
+        expires_at = #{expiresAt}
+        WHERE user_id = #{userId} AND client = #{client}
+    </update>
+    <delete id="deleteToken">
+        DELETE FROM tokens
+        WHERE token = #{token};
+    </delete>
+</mapper>
