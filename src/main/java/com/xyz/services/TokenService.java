@@ -4,13 +4,14 @@ import com.xyz.common.Utils;
 import com.xyz.mapper.TokenMapper;
 import com.xyz.pojo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 /**
 * @author lzs
 * @Date 2020/3/21
 */
 
-@Repository
+@Service
 public class TokenService {
     @Autowired
     private TokenMapper tokenMapper;

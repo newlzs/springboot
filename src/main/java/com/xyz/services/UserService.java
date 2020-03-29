@@ -9,8 +9,9 @@ import com.xyz.mapper.UserMapper;
 import com.xyz.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
