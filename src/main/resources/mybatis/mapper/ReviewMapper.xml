@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyz.mapper.ReviewMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.pojo.Review">
+        <id column="comment_id" property="commentId" jdbcType="BIGINT"/>
+        <result column="post_id" property="postId" jdbcType="BIGINT"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <result column="create_at" property="createAt" jdbcType="BIGINT"/>
+        <result column="comment_to" property="commentTo" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        comment_id, post_id, creator_id, message, create_at, comment_to
+    </sql>
+    <insert id="createComment" useGeneratedKeys="true" keyProperty="commentId" parameterType="com.xyz.pojo.Review">
+        INSERT INTO comments
+        (post_id, creator_id, message, create_at, comment_to)
+        VALUES
+        (#{postId}, #{creatorId}, #{message}, #{createAt}, #{commentTo})
+    </insert>
+    <select id="getCommentBypostId" resultType="com.xyz.pojo.Review" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM comments
+        WHERE post_id=#{postId}
+    </select>
+    <select id="getCommentBycreatorId" resultType="com.xyz.pojo.Review" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM comments
+        WHERE creator_id=#{creatorId}
+    </select>
+    <delete id="deleteComment">
+        DELETE FROM comments
+        WHERE post_id = #{postId}
+    </delete>
+</mapper>

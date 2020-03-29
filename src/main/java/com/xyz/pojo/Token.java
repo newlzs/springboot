@@ -1,11 +1,13 @@
 package com.xyz.pojo;
 
+import java.io.Serializable;
+
 /**
 * @author lzs
 * @Date 2020/3/21
 */
 
-public class Token {
+public class Token implements Serializable {
     private long userId;
     private int client;
     private String ip;
