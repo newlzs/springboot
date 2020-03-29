@@ -2,7 +2,7 @@ package com.xyz.pojo;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Product implements Serializable,Model {
     private static final long serialVersionUID = 1L;
     private long id;
     private String name;

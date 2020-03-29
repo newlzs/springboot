@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xyz.mapper.TokenMapper">
+    <!-- 开启基于redis的二级缓存 -->
+    <cache type="com.xyz.config.RedisCache"/>
+
     <resultMap id="BaseResultMap" type="com.xyz.pojo.Token" >
         <result column="user_id" property="userId" jdbcType="BIGINT" />
         <result column="client" property="client" jdbcType="BIGINT" />
@@ -25,13 +28,13 @@
         FROM tokens
         WHERE user_id = #{userId} AND client = #{client}
     </select>
-    <select id="getTokenByStr" resultMap="BaseResultMap" >
+    <select id="getTokenByStr" resultMap="BaseResultMap" resultType="com.xyz.pojo.Token">
         SELECT
         <include refid="Base_Column_List"></include>
         FROM tokens
         WHERE token = #{token}
     </select>
-    <update id="updateToken" parameterType="com.xyz.pojo.Token" >
+    <update id="updateToken" parameterType="com.xyz.pojo.Token" flushCache="true">
         UPDATE tokens
         SET
         token = #{token},

@@ -5,7 +5,6 @@ import com.xyz.enums.UserSexEnum;
 import java.io.Serializable;
 
 public class User implements Serializable, Model{
-
     private static final long serialVersionUID = 1L;
     private Long id;
     private String userName;

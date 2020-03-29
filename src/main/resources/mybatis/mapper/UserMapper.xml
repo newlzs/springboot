@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xyz.mapper.UserMapper" >
+    <!-- 开启基于redis的二级缓存 -->
+    <cache type="com.xyz.config.RedisCache"/>
+
     <resultMap id="BaseResultMap" type="com.xyz.pojo.User" >
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="userName" property="userName" jdbcType="VARCHAR" />
@@ -40,7 +43,7 @@
        		(#{userName}, #{passWord}, #{userSex}, #{nickName})
     </insert>
 
-    <update id="updateUser" parameterType="com.xyz.pojo.User" >
+    <update id="updateUser" parameterType="com.xyz.pojo.User" flushCache="true">
         UPDATE
         users
         SET

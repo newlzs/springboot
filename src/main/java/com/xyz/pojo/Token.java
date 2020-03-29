@@ -7,7 +7,8 @@ import java.io.Serializable;
 * @Date 2020/3/21
 */
 
-public class Token implements Serializable {
+public class Token implements Serializable,Model {
+    private static final long serialVersionUID = 1L;
     private long userId;
     private int client;
     private String ip;

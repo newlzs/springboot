@@ -49,6 +49,6 @@ public class ReviewControl {
     }
     @PostMapping("/creatorId/{creatorId}")
     public Response getByCreatorId(@PathVariable long creatorId) {
-        return new Response(0, reviewService.getCommentBypostId(creatorId));
+        return new Response(0, reviewService.getCommentBycreatorId(creatorId));
     }
 }

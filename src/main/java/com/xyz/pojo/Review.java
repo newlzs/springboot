@@ -1,10 +1,14 @@
 package com.xyz.pojo;
+
+import java.io.Serializable;
+
 /**
 * @author lzs
 * @Date 2020/3/29
 */
 
-public class Review {
+public class Review implements Serializable,Model{
+    private static final long serialVersionUID = 1L;
     private long commentId;
     private long postId;
     private long creatorId;
