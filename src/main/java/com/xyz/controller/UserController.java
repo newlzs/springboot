@@ -1,6 +1,7 @@
 package com.xyz.controller;
 
 import com.xyz.common.Response;
+import com.xyz.common.SnowFlakeIdWorker;
 import com.xyz.dto.request.UpdateMessageRequest;
 import com.xyz.dto.request.UpdatePasswordRequest;
 import com.xyz.dto.request.UserLoginRequest;
@@ -14,6 +15,7 @@ import com.xyz.pojo.User;
 import com.xyz.mapper.UserMapper;
 import com.xyz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Value("${uuid.workerId}")
+    private long workerId;
+    @Value("${uuid.dataCenterId}")
+    private long dataCenterId;
+
+    private SnowFlakeIdWorker snowFlakeId = new SnowFlakeIdWorker(workerId, dataCenterId);
 
     @Autowired
     private UserService userService;
@@ -35,6 +43,7 @@ public class UserController {
             throw new FormValidatorException(bindingResult);
         }
         User user = new User();
+        user.setId(snowFlakeId.nextId());
         user.setPassWord(registerRequest.getPassword());
         user.setUserName(registerRequest.getName());
         user.setNickName(registerRequest.getNickName());

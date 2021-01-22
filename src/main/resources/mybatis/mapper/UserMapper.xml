@@ -38,9 +38,9 @@
     <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.xyz.pojo.User" >
        INSERT INTO
        		users
-       		(userName,passWord,user_sex, nick_name)
+       		(id, userName,passWord,user_sex, nick_name)
         VALUES
-       		(#{userName}, #{passWord}, #{userSex}, #{nickName})
+       		(#{id}, #{userName}, #{passWord}, #{userSex}, #{nickName})
     </insert>
 
     <update id="updateUser" parameterType="com.xyz.pojo.User" flushCache="true">

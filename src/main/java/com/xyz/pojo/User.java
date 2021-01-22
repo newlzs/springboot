@@ -16,8 +16,9 @@ public class User implements Serializable, Model{
         super();
     }
 
-    public User(String userName, String passWord, UserSexEnum userSex) {
+    public User(Long id, String userName, String passWord, UserSexEnum userSex) {
         super();
+        this.id = id;
         this.passWord = passWord;
         this.userName = userName;
         this.userSex = userSex;
