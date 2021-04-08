@@ -38,4 +38,7 @@ public class PostService {
     public List<Post> getPostsByCreatorId(Long userId) {
         return new ArrayList<>(postMapper.getPostByCreatorId(userId));
     }
+    public List<Post> getPostsPage(Long offset, Long limit){
+        return new ArrayList<>(postMapper.getPostsPage(offset, limit));
+    }
 }

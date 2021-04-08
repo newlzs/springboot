@@ -1,8 +1,10 @@
 package com.xyz.exception;
 
-public class BaseException extends Exception {
+public class BaseException extends RuntimeException {
     private Integer code;
     private String message;
+
+    public BaseException(){}
 
     public int getCode() {
         return code;

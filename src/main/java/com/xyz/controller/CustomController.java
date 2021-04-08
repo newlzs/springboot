@@ -12,6 +12,7 @@ import com.xyz.exception.general.ResourceNotExistException;
 import com.xyz.pojo.Post;
 import com.xyz.pojo.User;
 import com.xyz.services.PostService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,10 @@ public class CustomController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping("/new")
-    public Response createNewPost(@RequestBody @Valid CreatePostRequest request,
-                                  HttpServletRequest httpServletRequest,
+    @ApiOperation(value = "创建新的帖子")
+    @PostMapping("")
+    public Response createNewPost(HttpServletRequest httpServletRequest,
+                                  @RequestBody @Valid CreatePostRequest request,
                                   BindingResult bindingResult) throws BaseException {
         if(bindingResult.hasErrors()) {
             throw new FormValidatorException(bindingResult);
@@ -47,9 +49,10 @@ public class CustomController {
         return new Response(0, newId);
     }
 
+    @ApiOperation(value = "修改帖子内容")
     @PutMapping("/{postId}")
     public Object updatePost(@RequestBody @Valid CreatePostRequest request,
-                               @PathVariable long postId, BindingResult bindingResult,
+                             @PathVariable long postId, BindingResult bindingResult,
                              HttpServletRequest httpServletRequest) throws BaseException {
         if(bindingResult.hasErrors()) {
             throw new FormValidatorException(bindingResult);
@@ -75,6 +78,8 @@ public class CustomController {
         return new Response(0, null);
     }
 
+
+    @ApiOperation(value = "根据帖子id删除帖子")
     @DeleteMapping("/{postId}")
     public Response deletePost(@PathVariable long postId,
                                HttpServletRequest httpServletRequest) throws BaseException{

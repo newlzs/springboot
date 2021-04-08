@@ -1,13 +1,18 @@
 package com.xyz.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class UserLoginRequest {
+    @ApiModelProperty(value = "用户名",required = true,example = "root")
     @NotBlank
     private String name;
+
+    @ApiModelProperty(value = "密码",required = true,example = "123456")
     @NotBlank
     private String password;
 

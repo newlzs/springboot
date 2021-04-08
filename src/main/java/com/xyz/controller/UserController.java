@@ -14,6 +14,8 @@ import com.xyz.exception.user.PasswordException;
 import com.xyz.pojo.User;
 import com.xyz.mapper.UserMapper;
 import com.xyz.services.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
+@Api(value = "用户信息管理")
 public class UserController {
     @Value("${uuid.workerId}")
     private long workerId;
@@ -37,6 +40,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
+    @ApiOperation(value = "用户注册")
     public Response register(@RequestBody @Valid UserRegisterRequest registerRequest,
                              BindingResult bindingResult) throws BaseException {
         if(bindingResult.hasErrors()) {
@@ -54,6 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation(value = "用户登陆")
     public Response loginRequest(HttpServletRequest request, @RequestBody @Valid UserLoginRequest loginRequest,
                                  BindingResult bindingResult) throws BaseException {
         if(bindingResult.hasErrors()) {
@@ -65,12 +70,14 @@ public class UserController {
         return new Response(0, response);
     }
 
+    @ApiOperation(value = "获取个人信息")
     @GetMapping("/me")
     public Response getMine(HttpServletRequest request) {
         User user = (User)request.getAttribute("user");
         return new Response(0, user);
     }
 
+    @ApiOperation(value = "修改密码")
     @PostMapping("/password")
     public Response ChangeMessage(@RequestBody @Valid UpdatePasswordRequest passwordRequest,
                                   BindingResult bindingResult, HttpServletRequest request) throws BaseException {
@@ -90,6 +97,7 @@ public class UserController {
         return new Response(0, null);
     }
 
+    @ApiOperation(value = "修改个人信息")
     @PostMapping("/message")
     public Response nickName(@RequestBody @Valid UpdateMessageRequest messageRequest,
                              HttpServletRequest request) throws BaseException {

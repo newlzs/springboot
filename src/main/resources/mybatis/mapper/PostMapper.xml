@@ -37,6 +37,11 @@
         <include refid="Base_Column_List"/>
         FROM post
     </select>
+    <select id="getPostsPage" resultType="com.xyz.pojo.Post" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM post LIMIT #{offset}, #{limit}
+    </select>
     <insert id="createPost" useGeneratedKeys="true" keyProperty="id" parameterType="com.xyz.pojo.Post">
         INSERT INTO
             post

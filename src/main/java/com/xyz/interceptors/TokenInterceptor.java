@@ -24,6 +24,11 @@ public class TokenInterceptor implements HandlerInterceptor {
     UserService userService;
 
     private ArrayList<String> unCheckUrlsRegex = new ArrayList<String>() {{
+        add("/swagger-ui.html");
+        add("/webjars/.*");
+        add("/swagger-resources.*");
+        add("/v2/.*");
+
         add("/post/.*");
     }};
 
@@ -31,6 +36,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         add("/user/register");
         add("/user/login");
         add("/error");
+        add("/swagger-ui.html");
     }};
 
     @Override
@@ -59,6 +65,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         long userId = tokenService.checkToken(token);
         if(userId == -1) {
+            System.out.println(url);
             throw new NeedLoginException();
         }
 

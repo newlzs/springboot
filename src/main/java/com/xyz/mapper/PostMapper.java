@@ -20,4 +20,5 @@ public interface PostMapper {
     int deletePost(long Id);
     int checkOwnerShip(@Param("userId") long userId, @Param("postId") long postId);
     Collection<Post> getPostByCreatorId(@Param("creatorId") long creatorId);
+    Collection<Post> getPostsPage(@Param("offset") long offset, @Param("limit") long limit);
 }
