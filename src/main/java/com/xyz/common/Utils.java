@@ -10,4 +10,8 @@ public class Utils {
     public static String createUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
+
+    public void test(){
+        System.out.println("测试git");
+    }
 }

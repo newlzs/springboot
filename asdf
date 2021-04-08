@@ -1,0 +1,14 @@
+[1mdiff --git a/src/main/java/com/xyz/common/Utils.java b/src/main/java/com/xyz/common/Utils.java[m
+[1mindex b8e29f9..9a4384e 100644[m
+[1m--- a/src/main/java/com/xyz/common/Utils.java[m
+[1m+++ b/src/main/java/com/xyz/common/Utils.java[m
+[36m@@ -10,4 +10,8 @@[m [mpublic class Utils {[m
+     public static String createUUID() {[m
+         return UUID.randomUUID().toString().replace("-", "");[m
+     }[m
+[32m+[m
+[32m+[m[32m    public void test(){[m
+[32m+[m[32m        System.out.println("测试git");[m
+[32m+[m[32m    }[m
+ }[m
+\ No newline at end of file[m
